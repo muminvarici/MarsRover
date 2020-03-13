@@ -21,6 +21,7 @@ namespace MarsRover.BoardSimulation
 			Context.MoveRovers();
 
 			SpinWait.SpinUntil(() => false);
+
 		}
 
 		private static void InitializeLand()
