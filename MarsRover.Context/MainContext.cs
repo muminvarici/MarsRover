@@ -27,7 +27,7 @@ namespace MarsRover.Context
 		{
 			foreach (var rover in Rovers)
 			{
-				new RoverSimulator(rover, Land).PrintForRover();
+				new RoverSimulator(rover, Land).MoveRover();
 			}
 		}
 
