@@ -12,9 +12,13 @@ The rest of the input is information pertaining to the rovers that have been dep
 The position is made up of two integers and a letter separated by spaces, corresponding to the x and y co-ordinates and the rover's orientation. 
 Each rover will be finished sequentially, which means that the second rover won't start to move until the first one has finished moving. 
 
-#Output: The output for each rover should be its final co-ordinates and heading. 
+#Output: 
+
+The output for each rover should be its final co-ordinates and heading. 
 Input and Output 
-#Test Input: 
+
+#Test Input:
+
 5 5
 1 2 N
 LMLMLMLMM 
