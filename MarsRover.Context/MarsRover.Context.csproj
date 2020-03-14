@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MarsRover.Core\MarsRover.Core.csproj" />
     <ProjectReference Include="..\MarsRover.Entity\MarsRover.Entity.csproj" />
   </ItemGroup>
 

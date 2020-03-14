@@ -9,9 +9,7 @@ namespace MarsRover.Entity.Model
 	/// </summary>
 	public class Land : LandBase
 	{
-
-		public Land(int xUpperBound, int yUpperBound) :
-			base(xUpperBound, yUpperBound)
+		public Land(Bound upperBound) : base(upperBound)
 		{
 		}
 

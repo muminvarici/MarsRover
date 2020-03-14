@@ -9,9 +9,9 @@ namespace MarsRover.Entity.Model
 	{
 		public Bound UpperBounds { get; private set; }
 		public int[,] GroundMatrix { get; protected set; }
-		public LandBase(int xUpperBound, int yUpperBound)
+		public LandBase(Bound upperBound)
 		{
-			UpperBounds = new Bound(xUpperBound, yUpperBound);
+			UpperBounds = upperBound;
 		}
 
 		public abstract void Build();
