@@ -1,9 +1,13 @@
 ﻿using MarsRover.Entity;
 using System;
+using System.Linq;
 
 namespace MarsRover.Context
 {
-	internal class RoverSimulator
+	/// <summary>
+	/// The simulator object
+	/// </summary>
+	public class RoverSimulator
 	{
 		public Rover Rover { get; }
 		public Land Land { get; }
@@ -14,78 +18,26 @@ namespace MarsRover.Context
 			Land = land;
 		}
 
+		/// <summary>
+		/// Moves the Rover by it's path
+		/// </summary>
 		public void MoveRover()
 		{
-			for (int i = 0; i < Rover.Path.Length; i++)
+			for (int i = 0; i < Rover.Path.Count(); i++)
 			{
-				if (Rover.Path[i] == StepDirection.MoveForward)
+				if (Rover.Path.ElementAt(i) == StepDirection.MoveForward)
 				{
-					MoveForward();
+					Rover.MoveForward();
 				}
 
-				var path = Rover.Path[i];
-				Console.WriteLine($"Position: {Rover.XPosition}, {Rover.YPosition}\t Direction {Rover.Direction}\t Path {path.ToString()}");
+				var path = Rover.Path.ElementAt(i);
+				Console.WriteLine($"Position: {Rover.Position.X}, {Rover.Position.Y}\t Direction {Rover.Direction}\t Path {path.ToString()}");
 				var nextDirection = DirectionAdapter.GetNextDirectionByStepDirection(Rover.Direction, path);
-				//PrintInternal(Rover.XPosition, Rover.YPosition);
 				Console.WriteLine($"Next direction: {nextDirection}");
 				Rover.Direction = nextDirection;
-				//Rover.StepNumber++;
 			}
 			Console.WriteLine($"Last Position and Direction:");
-			Console.WriteLine($"{Rover.XPosition} {Rover.YPosition} {Rover.Direction.ToString().Substring(0, 1)}");
+			Console.WriteLine($"{Rover.Position.X} {Rover.Position.Y} {Rover.Direction.ToString().Substring(0, 1)}");
 		}
-
-		private void MoveForward()
-		{
-			switch (Rover.Direction)
-			{
-				case Direction.North:
-					Rover.YPosition++;
-					break;
-				case Direction.East:
-					Rover.XPosition++;
-					break;
-				case Direction.South:
-					Rover.YPosition--;
-					break;
-				case Direction.West:
-					Rover.XPosition--;
-					break;
-				default:
-					break;
-			}
-		}
-
-		//private void PrintInternal(int roverXPosition = -1, int roverYPosition = -1)
-		//{
-		//	for (int x = Land.XUpperBound - 1; x >= 0; x--)
-		//	{
-		//		Console.Write(x);
-		//		for (int y = Land.YUpperBound; y > 0; y--)
-		//		{
-		//			if (roverXPosition == x && roverYPosition == y)
-		//			{
-		//				Rover.Print();
-		//			}
-		//			else
-		//			{
-		//				Console.Write(".");
-		//			}
-		//			Console.Write(" ");
-		//		}
-		//		Console.WriteLine();
-		//	}
-		//	for (int y = 0; y < Land.YUpperBound; y++)
-		//	{
-		//		Console.Write($" {y}");
-		//	}
-
-		//	Console.WriteLine();
-		//}
-
-		//public void Print()
-		//{
-		//	PrintInternal();
-		//}
 	}
 }

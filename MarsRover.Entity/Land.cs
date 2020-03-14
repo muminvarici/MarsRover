@@ -4,6 +4,9 @@ using System.Text;
 
 namespace MarsRover.Entity
 {
+	/// <summary>
+	/// Land Model
+	/// </summary>
 	public class Land
 	{
 		public int XUpperBound { get; private set; }

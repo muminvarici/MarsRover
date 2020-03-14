@@ -1,4 +1,5 @@
 ﻿using MarsRover.Context;
+using MarsRover.Core;
 using MarsRover.Entity;
 using System;
 using System.Linq;
@@ -21,7 +22,6 @@ namespace MarsRover.BoardSimulation
 			Context.MoveRovers();
 
 			SpinWait.SpinUntil(() => false);
-
 		}
 
 		private static void InitializeLand()
@@ -42,8 +42,8 @@ namespace MarsRover.BoardSimulation
 			Console.WriteLine("Enter the board land dimensions (Press enter for '5 5')");
 			var bounds = Console.ReadLine();
 			bounds = bounds == string.Empty ? "5 5" : bounds;
-			var boundArray = GetSplittedArray<int>(bounds);
-			return new Land(boundArray[0], boundArray[1]);
+			var boundArray = StringOperations.GetSplittedArray<int>(bounds);
+			return new Land(boundArray.ElementAt(0), boundArray.ElementAt(1));
 		}
 
 		private static Rover GetRover(int roverNumber, string defaultPosition, string defaultPath)
@@ -54,39 +54,19 @@ namespace MarsRover.BoardSimulation
 			Console.WriteLine($"Enter the path of #{roverNumber} rover (Press enter for {defaultPath})");
 			var pathValue = Console.ReadLine();
 			pathValue = pathValue == string.Empty ? defaultPath : pathValue;
-			return CreateGetRover(roverInput, pathValue);
+			return CreateRover(roverInput, pathValue);
 		}
 
-		private static Rover CreateGetRover(string value, string pathValue)
+		private static Rover CreateRover(string value, string pathValue)
 		{
 			var values = value.Split(' ');
 			var xPosition = Convert.ToInt32(values[0]);
 			var yPosition = Convert.ToInt32(values[1]);
 			var direction = DirectionAdapter.GetDirectionByLetter(values[2]);
 
-			var path = GetSplittedArray<StepDirection>(pathValue);
+			var path = StringOperations.GetSplittedArray<StepDirection>(pathValue);
 
 			return new Rover(xPosition, yPosition, direction, path);
-		}
-
-		/// <summary>
-		/// Returns an array of values splitted by the seperator character
-		/// </summary>
-		/// <param name="value">The value of string contains seperator character</param>
-		/// <param name="seperator">The seperator character. Default value is 'space' character</param>
-		/// <returns></returns>
-		private static T[] GetSplittedArray<T>(string value)
-		{
-			var values = value.ToCharArray().Where(w => w != ' ').Select(w => Convert.ToString(w));
-			if (typeof(T) == typeof(int))
-			{
-				return values.Select(w => Convert.ToInt32(w)).ToArray() as T[];
-			}
-			else if (typeof(T) == typeof(StepDirection))
-			{
-				return values.Select(w => DirectionAdapter.GetStepDirectionByLetter(w)).ToArray() as T[];
-			}
-			return values as T[];
 		}
 	}
 }

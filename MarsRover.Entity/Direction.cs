@@ -4,26 +4,20 @@ using System.Text;
 
 namespace MarsRover.Entity
 {
+	/// <summary>
+	/// Geographical direction enumeration
+	/// </summary>
 	public enum Direction
 	{
-		/// <summary>
-		/// Kuzey
-		/// </summary>
 		North = 0,
-		/// <summary>
-		/// Doğu
-		/// </summary>
 		East = 1,
-		/// <summary>
-		/// Güney
-		/// </summary>
 		South = 2,
-		/// <summary>
-		/// Batı
-		/// </summary>
 		West = 3
 	}
 
+	/// <summary>
+	/// Step direction enumeration
+	/// </summary>
 	public enum StepDirection
 	{
 		Left = 0,
