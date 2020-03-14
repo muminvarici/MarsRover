@@ -1,11 +1,6 @@
 ﻿using FluentAssertions;
 using MarsRover.Context;
-using MarsRover.Core;
 using MarsRover.Entity.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace MarsRover.Test
 {
@@ -17,7 +12,7 @@ namespace MarsRover.Test
 		public int RoverCode { get; internal set; }
 		public RoverBase Rover { get; private set; }
 
-		public override void RunInternal()
+		public override void AfterRun()
 		{
 			var output = $"{Rover.Position.X} {Rover.Position.Y} {Rover.Direction.ToString().Substring(0, 1)}";
 			ExpectedResult.Should().BeEquivalentTo(output);
@@ -26,19 +21,17 @@ namespace MarsRover.Test
 
 		public override void InitializeRovers()
 		{
-			Rover = GetRover(RoverCode, InitialPosition, Path);
+			Rover = GetRover(InitialPosition, Path);
 			Context.AddRover(Rover);
 		}
 
+		/// <summary>
+		/// Returns a new Land according to bound value
+		/// </summary>
 		public override LandBase GetLand()
 		{
 			BoundString = "5 5";
 			return base.GetLand();
-		}
-
-		public override RoverBase GetRover(int roverNumber, string defaultPosition, string defaultPath)
-		{
-			return base.GetRover(defaultPosition, defaultPath);
 		}
 	}
 }

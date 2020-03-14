@@ -10,7 +10,6 @@ namespace MarsRover.Core
 		/// Returns an array of values splitted by the seperator character
 		/// </summary>
 		/// <param name="value">The value of string contains seperator character</param>
-		/// <param name="seperator">The seperator character. Default value is 'space' character</param>
 		/// <returns></returns>
 		public static IEnumerable<T> GetSplittedArray<T>(string value)
 		{
@@ -21,10 +20,20 @@ namespace MarsRover.Core
 			}
 			else if (typeof(T).IsEnum)
 			{
-				var enumValues = (T[])Enum.GetValues(typeof(T));
-				return values.Select(s => enumValues.FirstOrDefault(w => w.ToString().StartsWith(s)));
+				return values.Select(s => GetEnumByFirstCharacter<T>(s));
 			}
-			return values as T[];
+			return values as IEnumerable<T>;
+		}
+
+		public static T GetEnumByFirstCharacter<T>(string s)
+		{
+			var enumValues = GetEnumValues<T>();
+			return enumValues.FirstOrDefault(w => w.ToString().StartsWith(s));
+		}
+
+		private static IEnumerable<T> GetEnumValues<T>()
+		{
+			return (T[])Enum.GetValues(typeof(T));
 		}
 	}
 }

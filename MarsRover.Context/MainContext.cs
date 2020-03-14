@@ -11,6 +11,9 @@ namespace MarsRover.Context
 		public LandBase Land { get; private set; }
 		public List<IRoverSimulator> Simulator { get; private set; }
 
+		/// <summary>
+		/// Returns the context
+		/// </summary>
 		public static MainContext GetInstance()
 		{
 			if (CurrentContext == null)
@@ -23,6 +26,9 @@ namespace MarsRover.Context
 			return CurrentContext;
 		}
 
+		/// <summary>
+		/// Executes the simulators and moves rovers.
+		/// </summary>
 		public void MoveRovers()
 		{
 			foreach (var simulator in Simulator)
