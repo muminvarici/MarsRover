@@ -1,6 +1,7 @@
 ﻿using MarsRover.Context;
 using MarsRover.Core;
-using MarsRover.Entity;
+using MarsRover.Entity.Enum;
+using MarsRover.Entity.Model;
 using System;
 using System.Linq;
 using System.Threading;
@@ -37,7 +38,7 @@ namespace MarsRover.BoardSimulation
 			Context.AddRover(rover1, rover2);
 		}
 
-		private static Land GetLand()
+		private static LandBase GetLand()
 		{
 			Console.WriteLine("Enter the board land dimensions (Press enter for '5 5')");
 			var bounds = Console.ReadLine();
@@ -46,7 +47,7 @@ namespace MarsRover.BoardSimulation
 			return new Land(boundArray.ElementAt(0), boundArray.ElementAt(1));
 		}
 
-		private static Rover GetRover(int roverNumber, string defaultPosition, string defaultPath)
+		private static RoverBase GetRover(int roverNumber, string defaultPosition, string defaultPath)
 		{
 			Console.WriteLine($"Enter #{roverNumber} rover position and direction (Press enter for {defaultPosition})");
 			var roverInput = Console.ReadLine();
@@ -57,7 +58,7 @@ namespace MarsRover.BoardSimulation
 			return CreateRover(roverInput, pathValue);
 		}
 
-		private static Rover CreateRover(string value, string pathValue)
+		private static RoverBase CreateRover(string value, string pathValue)
 		{
 			var values = value.Split(' ');
 			var xPosition = Convert.ToInt32(values[0]);

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MarsRover.Entity
+namespace MarsRover.Entity.Model
 {
 	public class Position
 	{

@@ -1,4 +1,6 @@
-﻿using MarsRover.Entity;
+﻿using MarsRover.Entity.Enum;
+using MarsRover.Entity.Interface;
+using MarsRover.Entity.Model;
 using System;
 using System.Linq;
 
@@ -7,15 +9,12 @@ namespace MarsRover.Context
 	/// <summary>
 	/// The simulator object
 	/// </summary>
-	public class RoverSimulator
+	public class RoverSimulator : IRoverSimulator
 	{
-		public Rover Rover { get; }
-		public Land Land { get; }
-
-		public RoverSimulator(Rover rover, Land land)
+		public RoverBase Rover { get; }
+		public RoverSimulator(RoverBase rover)
 		{
 			Rover = rover;
-			Land = land;
 		}
 
 		/// <summary>

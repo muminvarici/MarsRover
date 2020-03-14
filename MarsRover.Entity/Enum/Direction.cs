@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MarsRover.Entity
+namespace MarsRover.Entity.Enum
 {
 	/// <summary>
 	/// Geographical direction enumeration
@@ -13,15 +13,5 @@ namespace MarsRover.Entity
 		East = 1,
 		South = 2,
 		West = 3
-	}
-
-	/// <summary>
-	/// Step direction enumeration
-	/// </summary>
-	public enum StepDirection
-	{
-		Left = 0,
-		Rigth = 1,
-		MoveForward = 99
 	}
 }

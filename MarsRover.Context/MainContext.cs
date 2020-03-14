@@ -1,5 +1,5 @@
-﻿using MarsRover.Entity;
-using System;
+﻿using MarsRover.Entity.Interface;
+using MarsRover.Entity.Model;
 using System.Collections.Generic;
 
 namespace MarsRover.Context
@@ -8,8 +8,8 @@ namespace MarsRover.Context
 	{
 		private static MainContext CurrentContext;
 
-		public Land Land { get; private set; }
-		public List<Rover> Rovers { get; private set; }
+		public LandBase Land { get; private set; }
+		public List<IRoverSimulator> Simulator { get; private set; }
 
 		public static MainContext GetInstance()
 		{
@@ -17,7 +17,7 @@ namespace MarsRover.Context
 			{
 				CurrentContext = new MainContext
 				{
-					Rovers = new List<Rover>()
+					Simulator = new List<IRoverSimulator>()
 				};
 			}
 			return CurrentContext;
@@ -25,19 +25,23 @@ namespace MarsRover.Context
 
 		public void MoveRovers()
 		{
-			foreach (var rover in Rovers)
+			foreach (var simulator in Simulator)
 			{
-				new RoverSimulator(rover, Land).MoveRover();
+				simulator.MoveRover();
 			}
 		}
 
-		public void SetLand(Land board)
+		public void SetLand(LandBase board)
 		{
 			Land = board;
 		}
-		public void AddRover(params Rover[] rovers)
+
+		public void AddRover(params RoverBase[] rovers)
 		{
-			Rovers.AddRange(rovers);
+			foreach (var simulator in rovers)
+			{
+				Simulator.Add(new RoverSimulator(simulator));
+			}
 		}
 	}
 }

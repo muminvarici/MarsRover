@@ -1,4 +1,4 @@
-﻿using MarsRover.Entity;
+﻿using MarsRover.Entity.Enum;
 using System;
 
 namespace MarsRover.Context

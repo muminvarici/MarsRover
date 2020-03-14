@@ -1,9 +1,9 @@
 using FluentAssertions;
 using MarsRover.Context;
 using MarsRover.Core;
-using MarsRover.Entity;
+using MarsRover.Entity.Enum;
+using MarsRover.Entity.Model;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
@@ -13,7 +13,7 @@ namespace MarsRover.Test
 	{
 		private MainContext Context;
 
-		public RoverMoveTest( )
+		public RoverMoveTest()
 		{
 			Context = MainContext.GetInstance();
 			InitializeLand();
@@ -36,13 +36,13 @@ namespace MarsRover.Test
 			var rover = GetRover(initialPosition, path);
 			Context.AddRover(rover);
 
-			new RoverSimulator(rover, Context.Land).MoveRover();
+			new RoverSimulator(rover).MoveRover();
 
 			var output = $"{rover.Position.X} {rover.Position.Y} {rover.Direction.ToString().Substring(0, 1)}";
 
 			expectedOutput.Should().BeEquivalentTo(output);
 		}
-		 
+
 
 		private void InitializeLand()
 		{
@@ -51,19 +51,19 @@ namespace MarsRover.Test
 			Context.Land.Build();
 		}
 
-		private Land GetLand()
+		private LandBase GetLand()
 		{
 			var bounds = "5 5";
 			var boundArray = StringOperations.GetSplittedArray<int>(bounds);
 			return new Land(boundArray.ElementAt(0), boundArray.ElementAt(1));
 		}
 
-		private Rover GetRover(string position, string path)
+		private RoverBase GetRover(string position, string path)
 		{
 			return CreateRover(position, path);
 		}
 
-		private Rover CreateRover(string value, string pathValue)
+		private RoverBase CreateRover(string value, string pathValue)
 		{
 			var values = value.Split(' ');
 			var xPosition = Convert.ToInt32(values[0]);
@@ -73,6 +73,6 @@ namespace MarsRover.Test
 			var path = StringOperations.GetSplittedArray<StepDirection>(pathValue);
 
 			return new Rover(xPosition, yPosition, direction, path);
-		} 
+		}
 	}
 }
